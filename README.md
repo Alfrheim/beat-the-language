@@ -1,3 +1,6 @@
+# To develop
+ - Run in a terminal ``` npm start```
+ - Run in another terminal ``` npm run tauri dev ```
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
