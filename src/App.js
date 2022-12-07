@@ -1,20 +1,18 @@
 import './style.css';
 import LanguagesMenu from "./LanguagesMenu";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import Home from "./Home";
 import Spanish from "./spanish/Spanish";
-import {Routes, Route} from 'react-router-dom';
 
+const router = createBrowserRouter([
+    {path: '/', element: <Home/>},
+  {path: '/spanish', element: <Spanish/>}
+])
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-      <LanguagesMenu />
-        <Routes>
-            <Route path="/spanish" component={Spanish}/>
-            <Route exact path="/" component={App}/>
-        </Routes>
-    </div>
+        <RouterProvider router={router}/>
   );
+
 }
 
 export default App;
