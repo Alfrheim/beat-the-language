@@ -1,0 +1,14 @@
+import { Route } from "react-router-dom";
+import Spanish from "./spanish/Spanish";
+import App from "./App";
+
+function BeatTheLanguageRoutes() {
+    return (
+        <div>
+            <Route exact path="/spanish" component={Spanish}/>
+            <Route exact path="/" component={App}/>
+        </div>
+    );
+}
+
+export default BeatTheLanguageRoutes;
