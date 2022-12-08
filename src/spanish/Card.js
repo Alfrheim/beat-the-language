@@ -5,7 +5,7 @@ const Card = ({ word, onClick }) => {
         <div className="card">
             <div className="face face1">
                 <div className="content">
-                    {word}
+                    <h3>{word}</h3>
                 </div>
             </div>
             <div className="face face2">

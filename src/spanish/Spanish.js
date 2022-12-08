@@ -1,16 +1,17 @@
 import React from 'react';
 import "./spanish.css";
 import CardComponent from "./CardComponent";
+import Score from "./Score";
+import Word from "./Word";
 
 function Spanish() {
     return (
-        // <!-- score -->
-        // <!-- word in english -->
-        // <!-- cards -->
-        <div className="container">
+        <div className="cards">
+            <Score />
+            <Word word='House'/>
             <CardComponent />
+            {/*// <!-- footer -->*/}
         </div>
-
     );
 }
 

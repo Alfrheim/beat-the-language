@@ -1,4 +1,4 @@
-import './style.css';
+import './home.css';
 import LanguagesMenu from "./LanguagesMenu";
 
 function Home() {

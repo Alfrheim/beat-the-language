@@ -1,0 +1,11 @@
+.wordToTranslate {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.wordToTranslate > h3 {
+    color: azure;
+    font-weight: bold;
+    font-size: 50px;
+}

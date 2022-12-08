@@ -2,7 +2,7 @@ import React from 'react';
 import LinkTo from "./Utils";
 function Card({ languageTitle, onClick, readMoreText, onClickText}) {
     return (
-        <div className="card">
+        <div className="menu-card">
             <div className="face face1">
                 <div className="content">
                     <i>{languageTitle}</i>

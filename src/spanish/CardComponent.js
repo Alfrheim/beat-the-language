@@ -3,7 +3,7 @@ import Card from './Card';
 
 function CardComponent() {
     return (
-        <div>
+        <div className="container">
             <Card
                 word="Casa"
                 readMoreText="Learn More"
