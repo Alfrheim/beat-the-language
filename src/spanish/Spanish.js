@@ -13,11 +13,11 @@ function GetEnglishRandomWord() {
     }
     useEffect(getRandomWord, [])
 
-    return {randomWord}
+    return randomWord
 }
 
 function Spanish() {
-    const {randomWord} = GetEnglishRandomWord()
+    const randomWord = GetEnglishRandomWord()
     return (
         <div className="cards">
             <Score />
