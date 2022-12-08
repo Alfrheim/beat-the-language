@@ -8,9 +8,11 @@ extern crate lazy_static;
 
 mod xml_parser;
 
-use std::borrow::Borrow;
 use xml_parser::parse_xml_file;
 use std::collections::HashMap;
+use rand::{thread_rng};
+use rand::seq::IteratorRandom;
+
 extern crate quick_xml;
 
 lazy_static! {
@@ -23,14 +25,14 @@ fn main() {
       // Open and read the XML file
 
     // Parse the XML file and extract its content
-    let extracted_content = parse_xml_file();
+    // let extracted_content = parse_xml_file();
 
     // Print the extracted content
-    for (c, (d, t)) in DICTIONARY.iter() {
-        println!("c: {}", c);
-        println!("d: {}", d);
-        println!("t: {}", t);
-    }
+    // for (c, (d, t)) in DICTIONARY.iter() {
+    //     println!("c: {}", c);//english
+    //     println!("d: {}", d);//spanish
+    //     println!("t: {}", t);//definition
+    // }
   tauri::Builder::default()
       .invoke_handler(tauri::generate_handler![get_random_word])
     .run(tauri::generate_context!())
@@ -40,9 +42,13 @@ fn main() {
 #[tauri::command]
 fn get_random_word(language: &str) -> String {
 
-    let extracted_content = parse_xml_file();
+    let mut rng = thread_rng();
+    let key: &String = DICTIONARY.keys().choose(&mut rng).unwrap();
+
+    // let key = seq::sample_iter(&mut rng, DICTIONARY.keys(),1).unwrap();
+
     match language {
-        "EN" => String::from("House"),
+        "EN" => String::from(key),
         _ => String::from("couldn't recover the word")
     }
 }
