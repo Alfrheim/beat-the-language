@@ -1,7 +1,6 @@
 extern crate quick_xml;
 
 use std::collections::HashMap;
-use std::fs;
 use std::fs::File;
 use std::io::BufReader;
 use quick_xml::Reader;
@@ -10,7 +9,7 @@ use quick_xml::events::Event;
 // This function parses the XML file and extracts its content
 pub(crate) fn parse_xml_file() -> HashMap<String, (String, String)> {
       // Open the XML file
-    let file = fs::File::open("src/resources/en-es.xml").unwrap();
+    let file = File::open("src/resources/en-es.xml").unwrap();
     let file = BufReader::new(file);
 
     // Create a new XML reader

@@ -3,10 +3,21 @@
   windows_subsystem = "windows"
 )]
 
+#[macro_use]
+extern crate lazy_static;
+
 mod xml_parser;
-use xml_parser::read_xml_file;
+
+use std::borrow::Borrow;
 use xml_parser::parse_xml_file;
+use std::collections::HashMap;
 extern crate quick_xml;
+
+lazy_static! {
+    static ref DICTIONARY: HashMap<String, (String, String)> = {
+        parse_xml_file()
+    };
+}
 
 fn main() {
       // Open and read the XML file
@@ -15,7 +26,7 @@ fn main() {
     let extracted_content = parse_xml_file();
 
     // Print the extracted content
-    for (c, (d, t)) in extracted_content {
+    for (c, (d, t)) in DICTIONARY.iter() {
         println!("c: {}", c);
         println!("d: {}", d);
         println!("t: {}", t);
@@ -28,6 +39,8 @@ fn main() {
 
 #[tauri::command]
 fn get_random_word(language: &str) -> String {
+
+    let extracted_content = parse_xml_file();
     match language {
         "EN" => String::from("House"),
         _ => String::from("couldn't recover the word")
