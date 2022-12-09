@@ -29,7 +29,9 @@ function Spanish() {
     const [state, setState] = GetEnglishRandomWord()
     const [score, setScore] = useState([0, 0, 0])
     return (
-        <div className="cards">
+        <div className="cards" onClick={()=> { if (state.selected.includes(state.translation) || state.selected.length === 2)   invoke('get_random_word', {language: "EN"}).then((message) =>
+            setState({ ...state, word: message, translation:"Casa" , selected: [], choices: [ "Casa", "Violin", "Electrodomestico"]})
+        ); }}>
             <Score score = {score}/>
             <Word word={state.word}/>
             <CardComponent cards={state.choices}
