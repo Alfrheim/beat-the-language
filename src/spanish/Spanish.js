@@ -4,6 +4,7 @@ import CardComponent from "./CardComponent";
 import Score from "./Score";
 import Word from "./Word";
 import { invoke } from '@tauri-apps/api';
+import {selectOptions} from "@testing-library/user-event/dist/select-options";
 
 function GetEnglishRandomWord() {
 const [state, setState] = useState({
@@ -12,18 +13,18 @@ const [state, setState] = useState({
     choices: [],
     selected: []
 })
-    function getRandomWord() {
-        //{ word , tranlation, choices[], selected [] }
-        invoke('get_random_word', {language: "EN"}).then((message) =>
-            setState({ ...state, word: message, translation:"Casa" ,choices: [ "Casa", "Violin", "Electrodomestico"]})
+    function promise() {
+        getRandomWord().then(
+            (message) =>
+                setState({ ...state, word: message, translation:"Casa" ,choices: [ "Casa", "Violin", "Electrodomestico"]})
         );
-        // setState({...state, choices: ["Violin", "Electrodomestico"]});
-}
+    }
 
-    useEffect(getRandomWord, [])
+    useEffect(promise, [])
 
     return [state, setState]
 }
+function getRandomWord() {return invoke('get_random_word', {language: "EN"})};
 
 function Spanish() {
     const [state, setState] = GetEnglishRandomWord()
@@ -51,7 +52,7 @@ function Spanish() {
                         }
                     }
 
-                    if(failed === 1)
+                    if(failed === 1 && !state.selected.includes(state.translation))
                         setScore([score[0], score[1], ++score[2]])
                 }
             }/>
