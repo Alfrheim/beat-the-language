@@ -1,7 +1,7 @@
 import React from "react";
 import './score.css';
 
-function Score({ wins = <>0</>, ties = <>0</>, losses = <>0</>} ) {
+function Score({score : [ wins, ties, losses]} ) {
 
   return (
     <div className="score">
