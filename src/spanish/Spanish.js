@@ -13,8 +13,8 @@ const [state, setState] = useState({
     selected: []
 })
     function promise() {
-        getRandomWord().then((message) =>
-            setState({ ...state, word: message, translation:"Casa" ,choices: [ "Casa", "Violin", "Electrodomestico"]})
+        getRandomWord().then((res) =>
+            setState({ ...state, word: res.word, translation: res.translation ,choices: res.choices})
         );
     }
 
@@ -32,8 +32,8 @@ function Spanish() {
     const [score, setScore] = useState([0, 0, 0])
     return (
         <div className="cards" onClick={()=> { if (state.selected.includes(state.translation) || state.selected.length === 2)
-            getRandomWord().then((message) =>
-                setState({ ...state, word: message, translation:"Casa", selected: [] ,choices: [ "Casa", "Violin", "Electrodomestico"]})
+            getRandomWord().then((res) =>
+                setState({ ...state, word: res.word, translation: res.translation, selected: [] ,choices: res.choices})
             );
         }}>
             <Score score = {score}/>
@@ -44,12 +44,11 @@ function Spanish() {
                     const failed = state.selected.length;
                     setState({...state, selected: [...state.selected, value]});
                     if (value === state.translation) {
-                        console.log(failed)
                         if(failed === 0) {
                             setScore([++score[0], score[1], score[2]])
                             return
                         }
-                        if(failed === 1) {
+                        if(failed === 1 && !state.selected.includes(state.translation)) {
                             setScore([score[0], ++score[1], score[2]])
                             return
                         }

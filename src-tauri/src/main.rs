@@ -12,6 +12,7 @@ use xml_parser::parse_xml_file;
 use std::collections::HashMap;
 use rand::{thread_rng};
 use rand::seq::IteratorRandom;
+use serde_json::to_string;
 
 extern crate quick_xml;
 
@@ -39,24 +40,46 @@ fn main() {
     .expect("error while running tauri application");
 }
 
+#[derive(serde::Serialize)]
+struct CustomResponse {
+    word: String,
+    translation: String,
+    choices: Vec<String>,
+}
+
 #[tauri::command]
-fn get_random_word(language: &str) -> String {
+fn get_random_word(language: &str) -> CustomResponse {
 
     let mut rng = thread_rng();
     let key: &String = DICTIONARY.keys().choose(&mut rng).unwrap();
 
     // let key = seq::sample_iter(&mut rng, DICTIONARY.keys(),1).unwrap();
+    let (translated_word, _) = DICTIONARY.get(key).unwrap();
+    let cleaned_word = translated_word.to_string()
+        .replace("{m}", "")
+        .replace("{f}", "")
+        .split(',')
+        .next()
+        .unwrap()
+        .to_string();
 
     match language {
-        "EN" => String::from(key),
-        _ => String::from("couldn't recover the word")
+        "EN" => CustomResponse {
+            word: String::from(key),
+            translation: cleaned_word.clone(),
+            choices: vec![cleaned_word.clone(), "Champu".to_string(), "Radiador".to_string()]
+        },
+        _ => CustomResponse { word: "".to_string(), translation: "".to_string(), choices: vec![]}
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use crate::get_random_word;
+
     #[test]
     fn it_works(){
+        get_random_word("EN");
         let result = 2+2;
         assert_eq!(result, 4);
     }
