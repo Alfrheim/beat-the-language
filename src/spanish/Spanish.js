@@ -4,7 +4,6 @@ import CardComponent from "./CardComponent";
 import Score from "./Score";
 import Word from "./Word";
 import { invoke } from '@tauri-apps/api';
-import {selectOptions} from "@testing-library/user-event/dist/select-options";
 
 function GetEnglishRandomWord() {
 const [state, setState] = useState({
@@ -14,9 +13,8 @@ const [state, setState] = useState({
     selected: []
 })
     function promise() {
-        getRandomWord().then(
-            (message) =>
-                setState({ ...state, word: message, translation:"Casa" ,choices: [ "Casa", "Violin", "Electrodomestico"]})
+        getRandomWord().then((message) =>
+            setState({ ...state, word: message, translation:"Casa" ,choices: [ "Casa", "Violin", "Electrodomestico"]})
         );
     }
 
@@ -24,15 +22,20 @@ const [state, setState] = useState({
 
     return [state, setState]
 }
-function getRandomWord() {return invoke('get_random_word', {language: "EN"})};
+
+function getRandomWord() {
+    return invoke('get_random_word', {language: "EN"})
+}
 
 function Spanish() {
     const [state, setState] = GetEnglishRandomWord()
     const [score, setScore] = useState([0, 0, 0])
     return (
-        <div className="cards" onClick={()=> { if (state.selected.includes(state.translation) || state.selected.length === 2)   invoke('get_random_word', {language: "EN"}).then((message) =>
-            setState({ ...state, word: message, translation:"Casa" , selected: [], choices: [ "Casa", "Violin", "Electrodomestico"]})
-        ); }}>
+        <div className="cards" onClick={()=> { if (state.selected.includes(state.translation) || state.selected.length === 2)
+            getRandomWord().then((message) =>
+                setState({ ...state, word: message, translation:"Casa", selected: [] ,choices: [ "Casa", "Violin", "Electrodomestico"]})
+            );
+        }}>
             <Score score = {score}/>
             <Word word={state.word}/>
             <CardComponent cards={state.choices}
