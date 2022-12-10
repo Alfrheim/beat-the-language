@@ -10,7 +10,7 @@ mod xml_parser;
 
 use xml_parser::parse_xml_file;
 use std::collections::HashMap;
-use rand::{thread_rng};
+use rand::{thread_rng, seq::SliceRandom};
 use rand::seq::IteratorRandom;
 use serde_json::to_string;
 
@@ -29,10 +29,10 @@ fn main() {
     // let extracted_content = parse_xml_file();
 
     // Print the extracted content
-    // for (c, (d, t)) in DICTIONARY.iter() {
-    //     println!("c: {}", c);//english
-    //     println!("d: {}", d);//spanish
-    //     println!("t: {}", t);//definition
+    // DICTIONARY.
+        println!("total keys: {}", DICTIONARY.keys().count());//english
+        println!("contains empty: {}", DICTIONARY.contains_key(""));//spanish
+        // println!("t: {}", t);//definition
     // }
   tauri::Builder::default()
       .invoke_handler(tauri::generate_handler![get_random_word])
@@ -49,28 +49,49 @@ struct CustomResponse {
 
 #[tauri::command]
 fn get_random_word(language: &str) -> CustomResponse {
-
     let mut rng = thread_rng();
-    let key: &String = DICTIONARY.keys().choose(&mut rng).unwrap();
 
-    // let key = seq::sample_iter(&mut rng, DICTIONARY.keys(),1).unwrap();
+    let key: &String = DICTIONARY.keys().choose(&mut rng).unwrap();
+    let translated_word = get_translation(key);
+
+    println!("----------------");
+    println!("selected key: {}", key);
+    println!("selected translation: {}", translated_word);
+    match language {
+        "EN" => CustomResponse {
+            word: String::from(key),
+            translation: translated_word.clone(),
+            choices: vec![translated_word.clone(), get_random_translation(), get_random_translation()]
+        },
+        _ => CustomResponse { word: "".to_string(), translation: "".to_string(), choices: vec![]}
+    }
+}
+
+fn get_random_translation() -> String {
+    let mut rng = thread_rng();
+    // let mut keys: Vec<&String> = DICTIONARY.keys().collect();
+    // keys.shuffle(&mut rng);
+    loop {
+        let key: &String = DICTIONARY.keys().choose(&mut rng).unwrap();
+        let result = get_translation(key);
+        if !result.trim().is_empty() {
+            println!("selected word: {}", result);
+            return result.to_string();
+        }
+    }
+}
+
+fn get_translation(key: &String) -> String {
     let (translated_word, _) = DICTIONARY.get(key).unwrap();
     let cleaned_word = translated_word.to_string()
         .replace("{m}", "")
         .replace("{f}", "")
+        .replace("{p}", "")
         .split(',')
         .next()
         .unwrap()
         .to_string();
-
-    match language {
-        "EN" => CustomResponse {
-            word: String::from(key),
-            translation: cleaned_word.clone(),
-            choices: vec![cleaned_word.clone(), "Champu".to_string(), "Radiador".to_string()]
-        },
-        _ => CustomResponse { word: "".to_string(), translation: "".to_string(), choices: vec![]}
-    }
+    cleaned_word
 }
 
 #[cfg(test)]

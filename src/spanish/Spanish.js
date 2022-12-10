@@ -35,6 +35,7 @@ function Spanish() {
             getRandomWord().then((res) =>
                 setState({ ...state, word: res.word, translation: res.translation, selected: [] ,choices: res.choices})
             );
+            console.log(state.choices)
         }}>
             <Score score = {score}/>
             <Word word={state.word}/>
