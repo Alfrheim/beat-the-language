@@ -24,7 +24,7 @@ const [state, setState] = useState({
 }
 
 function getRandomWord() {
-    return invoke('get_random_word', {language: "EN"})
+    return invoke('get_word', {language: "EN"})
 }
 
 function Spanish() {
