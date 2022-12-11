@@ -11,7 +11,6 @@ mod xml_parse_serde;
 use crate::xml_parse_serde::{get_list_of_words, Word, Words};
 use rand::{seq::SliceRandom, thread_rng};
 use serde_json::to_string;
-use std::collections::HashMap;
 extern crate quick_xml;
 
 lazy_static! {
@@ -37,15 +36,20 @@ struct CustomResponse {
 fn get_word(language: &str) -> CustomResponse {
     let word = WORDS.random_word();
     match language {
-        "EN" => CustomResponse {
-            word: word.word.to_string(),
-            translation: clean_translation(word),
-            choices: vec![
+        "EN" => {
+            let mut choices = vec![
                 clean_translation(word),
                 clean_translation(WORDS.random_word()),
                 clean_translation(WORDS.random_word()),
-            ],
-        },
+            ];
+            choices.shuffle(&mut thread_rng());
+            let response = CustomResponse {
+                word: word.word.to_string(),
+                translation: clean_translation(word),
+                choices,
+            };
+            response
+        }
         _ => CustomResponse {
             word: "".to_string(),
             translation: "".to_string(),

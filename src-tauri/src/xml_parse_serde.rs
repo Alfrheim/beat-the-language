@@ -7,8 +7,6 @@ use rand::prelude::*;
 
 #[derive(Debug, Deserialize, Default)]
 struct Dic {
-    from: String,
-    to: String,
     l: Vec<L>, // groups by first letter (a, b, c, ...)
 }
 
