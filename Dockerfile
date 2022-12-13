@@ -1,5 +1,3 @@
-# Run `make build-11-18` to build this image
-
 FROM rust:bullseye
 
 # Node.js
