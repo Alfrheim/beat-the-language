@@ -1,6 +1,14 @@
 # To develop
  - Run in a terminal ``` npm start```
  - Run in another terminal ``` npm run tauri dev ```
+
+# To build in nixos
+
+```shell
+docker compose up
+```
+This will create a volume in your folder to src-tauri/target
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
