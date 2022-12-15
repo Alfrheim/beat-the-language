@@ -1,0 +1,93 @@
+
+* {
+  position:relative;
+  width:100%;
+}
+
+body, html {
+  width:100%;
+  height:100%;
+}
+
+body {
+  margin:0;
+  font-family:"Kanit";
+  font-size:1.4em;
+  background:black;
+  overflow:hidden;
+  background: #1D022B;
+}
+
+
+.bg {
+  width:100%;
+  height:100%;
+  position:absolute;
+  background: linear-gradient(0deg, rgba(0,0,0,1) 4%, rgba(0,0,0,0) 40%),
+  radial-gradient(circle at 20% 70%, #8C0082 0%, #170024 65%);
+}
+
+.barWrapper {
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  position:absolute;
+}
+.bar {
+  width:80%;
+  height:200vh;
+  background:rgba(222,31,190,0.5);
+  transform:translate(30%, -20%)  rotate(25deg);
+  mix-blend-mode: overlay;
+  position:absolute;
+}
+
+.mainContent {
+  margin-top:20px;
+  position:relative;
+  width:90%;
+  color:white;
+  height:100%;
+}
+
+.contentWrapper {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding-bottom:80px;
+  width:100%;
+  position:relative;
+  height:100%;
+}
+
+
+
+.flexCenter {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+
+
+
+
+.maskOut {
+  width:fit-content;
+  font-weight:800;
+  font-size:clamp(20px, calc(100vw/8), 4em);
+  line-height:0.8em;
+
+  display:flex;
+}
+
+.mask {
+  overflow:hidden;
+  width:fit-content;
+}
+
+.thin {
+  font-weight:200;
+}

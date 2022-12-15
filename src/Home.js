@@ -1,4 +1,4 @@
-import './home.css';
+import './splashscreen.css';
 import LanguagesMenu from "./LanguagesMenu";
 import SplashScreen from "./SplashScreen";
 import LinkTo from "./Utils";
