@@ -2,15 +2,7 @@ import React, { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "./splashscreen.css";
 import {Helmet} from "react-helmet"
-
-// export default function App() {
-//
-//   return (
-//     <div ref={root} className="app">
-//       <div className="box">Hello</div>
-//     </div>
-//   );
-// }
+import { useNavigate  } from 'react-router-dom';
 
 function SplashScreen() {
     const root = useRef();
@@ -42,6 +34,10 @@ function SplashScreen() {
 
         return () => ctx.revert();
     }, []);
+    const navigate = useNavigate();
+    const navigateTo = () => {
+        navigate("/spanish");
+    }
     return (
         <>
         <Helmet>
@@ -52,7 +48,7 @@ function SplashScreen() {
                 rel="stylesheet"/>
 
         </Helmet>
-            <div ref={root} className="contentWrapper">
+            <div ref={root} className="contentWrapper" onClick={navigateTo}>
                 <div className="bg"></div>
                 <div className="barWrapper">
                     <div className="bar"></div>
