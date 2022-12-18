@@ -48,6 +48,7 @@ function SplashScreen() {
                 rel="stylesheet"/>
 
         </Helmet>
+
             <div ref={root} className="contentWrapper" onClick={navigateTo}>
                 <div className="bg"></div>
                 <div className="barWrapper">
