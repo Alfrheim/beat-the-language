@@ -31,7 +31,9 @@ function Spanish() {
     const [state, setState] = GetEnglishRandomWord()
     const [score, setScore] = useState([0, 0, 0])
     return (
-        <div className="cards" onClick={()=> { if (state.selected.includes(state.translation) || state.selected.length === 2)
+        <div className="cards" onClick={
+            ()=> {
+                if (state.selected.includes(state.translation) || state.selected.length === 2)
             getRandomWord().then((res) =>
                 setState({ ...state, word: res.word, translation: res.translation, selected: [] ,choices: res.choices})
             );
@@ -40,6 +42,7 @@ function Spanish() {
             <Score score = {score}/>
             <Word word={state.word}/>
             <CardComponent cards={state.choices}
+                           translation = {state.translation}
                            onClick= {
                 (value) => () => {
                     const failed = state.selected.length;
