@@ -31,7 +31,7 @@ pub(crate) struct Words {
 }
 
 impl Words {
-    fn new(words: Vec<Word>) -> Self {
+    pub fn new(words: Vec<Word>) -> Self {
         Words { words }
     }
     pub fn count(&self) -> usize {
@@ -90,14 +90,6 @@ mod tests {
 
         let result: Dic = from_str(dictionary_xml).unwrap();
         assert_eq!(result.l.get(0).unwrap().words.len(), 2);
-        result
-            .l
-            .get(0)
-            .unwrap()
-            .words
-            .get(0)
-            .unwrap()
-            .print_fields();
         assert_eq!(
             result.l.get(0).unwrap().words.get(0).unwrap().word,
             "house".to_string()
