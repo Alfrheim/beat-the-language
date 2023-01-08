@@ -6,7 +6,6 @@
 #[macro_use]
 extern crate lazy_static;
 
-//mod translate;
 mod translate;
 mod xml_parse_serde;
 
@@ -15,7 +14,6 @@ use crate::{
     xml_parse_serde::{get_list_of_words, Word, Words},
 };
 use rand::{seq::SliceRandom, thread_rng};
-use serde_json::to_string;
 extern crate quick_xml;
 
 lazy_static! {
@@ -26,7 +24,8 @@ lazy_static! {
 }
 
 fn main() {
-    println!("document total keys: {}", WORDS.count()); //english
+    println!("document total words: {}", WORDS.count()); //english
+    println!("document total verbs: {}", VERBS.count()); //english
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![get_word, get_verb])
         .run(tauri::generate_context!())

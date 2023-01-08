@@ -1,0 +1,38 @@
+jobs:
+  core_unit_test:
+    name: Core Unit Test
+    runs-on: ubuntu-latest
+    container:
+      image: ivangabriele/tauri:bullseye-node18
+      # This is REQUIRED if you use `tarpaulin`
+      # https://github.com/xd009642/tarpaulin/issues/146
+      # https://github.com/xd009642/tarpaulin#github-actions
+      options: --security-opt seccomp=unconfined
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run
+        run: cargo test
+        working-directory: ./src-tauri
+      # https://github.com/xd009642/tarpaulin#github-actions
+      - name: Generate Coverage
+        run: cargo tarpaulin --all-features --out Xml --timeout 120 --verbose
+        working-directory: ./src-tauri
+      # Add any other step here to upload your coverage somewhere
+
+  e2e_test:
+    name: E2E Test
+    runs-on: ubuntu-latest
+    container:
+      image: ivangabriele/tauri:bullseye-node18
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Node.js dependencies
+        run: yarn --frozen-lockfile # or `npm ci`
+      - name: Build
+        # Add your core + webview build command(s)
+        run: ...
+      - name: Run
+        # https://tauri.app/v1/guides/testing/webdriver/ci
+        run: xvfb-run wdio --native-driver run ./configs/wdio.config.js

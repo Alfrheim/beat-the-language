@@ -36,7 +36,7 @@ function SplashScreen() {
     }, []);
     const navigate = useNavigate();
     const navigateTo = () => {
-        navigate("/spanish");
+        navigate("/menu");
     }
     return (
         <>

@@ -82,8 +82,8 @@ alarmar | to alarm
 albergar shel| ter
 alborotar | to stir up, arouse, incite
 alegar | to contend, state, declare
-alejarse de
-alen| tar | to breathe; encourage, inspire
+alejarse de to move away from
+alentar | to breathe; encourage, inspire
 alertar | to alert, warn
 alienar | to alienate
 aligar | to bind, tie
@@ -574,7 +574,7 @@ desgajar | to rip off, tear off
 desganarse | to lose one's appetite
 desheredar | to disinherit
 deshidratar | to dehydrate
-deshinchar swelling
+deshinchar | swelling
 deshonrar | to dishonor, disgrace
 deshumanizar | to dehumanize
 designar | to designate
@@ -991,9 +991,9 @@ hadar | to foretell
 halagar | to flatter
 halar hambrear | to starve
 haraganear | to idle, loaf
-hay (See haber)
+hay | to be
 heder | to stink
-helar | to freeze (Def. and Imp.
+helar | to freeze (Def. and Imp.)
 hender | to split, crack
 hervir | to boil
 hidratar | to hydrate

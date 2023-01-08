@@ -1,16 +1,11 @@
-import './splashscreen.css';
-import LanguagesMenu from "./LanguagesMenu";
-import SplashScreen from "./SplashScreen";
-import LinkTo from "./Utils";
+import './splashscreen/splashscreen.css';
+import SplashScreen from "./splashscreen/SplashScreen";
 
 function Home() {
   return (
-    <div className="App" onClick={() =>
-        <LinkTo link="/spanish" />
-    }>
+    <div className="App" >
       <header className="App-header">
       </header>
-      {/*<LanguagesMenu />*/}
         <SplashScreen />
     </div>
   );

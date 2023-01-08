@@ -4,8 +4,9 @@ import CardComponent from "./CardComponent";
 import Score from "./Score";
 import Word from "./Word";
 import { invoke } from '@tauri-apps/api';
+import {useLocation} from "react-router-dom";
 
-function GetEnglishRandomWord() {
+function GetEnglishRandomWord(cmd) {
 const [state, setState] = useState({
     word: '',
     translation: '',
@@ -13,28 +14,31 @@ const [state, setState] = useState({
     selected: []
 })
     function promise() {
-        getRandomWord().then((res) =>
+        getRandomWord(cmd).then((res) =>
             setState({ ...state, word: res.word, translation: res.translation ,choices: res.choices})
         );
     }
 
-    useEffect(promise, [])
+    useEffect(promise, [cmd])
 
     return [state, setState]
 }
 
-function getRandomWord() {
-    return invoke('get_word', {language: "EN"})
+function getRandomWord(cmd = 'get_verb') {
+    return invoke(cmd, {language: "EN"})
 }
 
 function Spanish() {
-    const [state, setState] = GetEnglishRandomWord()
+    const location = useLocation();
+    const { cmd } = location.state;
+    let command = cmd;
+    const [state, setState] = GetEnglishRandomWord(command)
     const [score, setScore] = useState([0, 0, 0])
     return (
         <div className="cards" onClick={
             ()=> {
                 if (state.selected.includes(state.translation) || state.selected.length === 2)
-            getRandomWord().then((res) =>
+            getRandomWord(cmd).then((res) =>
                 setState({ ...state, word: res.word, translation: res.translation, selected: [] ,choices: res.choices})
             );
             console.log(state.choices)
