@@ -1,3 +1,25 @@
+body{
+  display:flex;
+  margin:0;
+  padding:0;
+  min-height: 100vh;
+  /*background: #444;*/
+  /*background: #212121;*/
+  justify-content: center;
+  align-items: center;
+  font-family: arial;
+}
+#root{
+  display:flex;
+  margin:0;
+  padding:0;
+  min-height: 100vh;
+  /*background: #444;*/
+  /*background: #212121;*/
+  justify-content: center;
+  align-items: center;
+  font-family: arial;
+}
 
 .container {
   width: 100%;
@@ -16,6 +38,15 @@
   transition: all .3s;
 }
 
+.cards {
+  width: 800px;
+  height: 500px;
+
+  position: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .container .game-card2 {
   width: 190px;
   height: 254px;
@@ -23,6 +54,14 @@
   background-color: #1a1a1a;
   border-radius:10%;
   transition: all .2s;
+}
+
+.container .game-card2-correct {
+  background-color: green;
+}
+
+.container .game-card2-failed {
+  background-color: darkred;
 }
 
 .container .game-card2  > h3 {

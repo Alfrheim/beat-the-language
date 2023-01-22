@@ -6,21 +6,28 @@
 #[macro_use]
 extern crate lazy_static;
 
+mod translate;
 mod xml_parse_serde;
 
-use crate::xml_parse_serde::{get_list_of_words, Word, Words};
+use crate::{
+    translate::get_verbs,
+    xml_parse_serde::{get_list_of_words, Word, Words},
+};
 use rand::{seq::SliceRandom, thread_rng};
-use serde_json::to_string;
 extern crate quick_xml;
 
 lazy_static! {
     static ref WORDS: Words = get_list_of_words();
 }
+lazy_static! {
+    static ref VERBS: Words = get_verbs("src/resources/spanish_verbs_clean.txt");
+}
 
 fn main() {
-    println!("document total keys: {}", WORDS.count()); //english
+    println!("document total words: {}", WORDS.count()); //english
+    println!("document total verbs: {}", VERBS.count()); //english
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![get_word])
+        .invoke_handler(tauri::generate_handler![get_word, get_verb])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -46,6 +53,32 @@ fn get_word(language: &str) -> CustomResponse {
             let response = CustomResponse {
                 word: word.word.to_string(),
                 translation: clean_translation(word),
+                choices,
+            };
+            response
+        }
+        _ => CustomResponse {
+            word: "".to_string(),
+            translation: "".to_string(),
+            choices: vec![],
+        },
+    }
+}
+
+#[tauri::command]
+fn get_verb(language: &str) -> CustomResponse {
+    let word = VERBS.random_word();
+    match language {
+        "EN" => {
+            let mut choices = vec![
+                word.translation.to_string(),
+                VERBS.random_word().translation.to_string(),
+                VERBS.random_word().translation.to_string(),
+            ];
+            choices.shuffle(&mut thread_rng());
+            let response = CustomResponse {
+                word: word.word.to_string(),
+                translation: word.translation.to_string(),
                 choices,
             };
             response

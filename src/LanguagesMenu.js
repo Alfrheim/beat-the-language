@@ -1,24 +1,15 @@
 import React from 'react';
-import Card from './Card';
+import { Link } from "react-router-dom";
+import './language-menu.css';
 
 function LanguagesMenu() {
 
-    return (
-        <div className="container">
-            <Card
-                languageTitle="Spanish"
-                readMoreText="Learn More"
-                onClick="/spanish"
-                onClickText="Learn Spanish"
-            />
-            <Card
-                languageTitle="German"
-                readMoreText="More Info"
-                onClick="/spanish"
-                onClickText="Learn German"
-            />
-        </div>
-    );
+  return (
+    <div className="container">
+      <Link to="/spanish" state={{ cmd: 'get_word' }}><button className="button menu" type="button"><h3>WORDS</h3></button></Link>
+      <Link to="/spanish" state={{ cmd: 'get_verb' }}><button className="button menu" type="button"><h3>VERBS</h3></button></Link>
+    </div>
+  );
 }
 
 export default LanguagesMenu;

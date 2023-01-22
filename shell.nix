@@ -29,6 +29,11 @@ let
     qemu
     llvmPackages_latest.lld
     python3
+    taplo-cli
+    rust-analyzer
+    lldb
+    rustfmt
+
   ];
 in
   pkgs.mkShell rec {
