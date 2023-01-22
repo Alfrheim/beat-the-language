@@ -19,7 +19,7 @@ const [state, setState] = useState({
         );
     }
 
-    useEffect(promise, [cmd])
+    useEffect(promise, [])
 
     return [state, setState]
 }
